@@ -1,0 +1,10 @@
+---
+title: "Biostats_HW2_P6"
+author: "Biostats@CUMC"
+date: "September 27, 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
