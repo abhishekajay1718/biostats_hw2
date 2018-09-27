@@ -8,3 +8,9 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+```{r data_import migraine}
+library(readxl)
+migraine <- read_excel("C:/Users/abhis/OneDrive/Desktop/School/Semester 1/P8130_biostats/HW2/migraine.xlsx")
+View(migraine)
+```
