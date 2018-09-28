@@ -2,23 +2,207 @@
 title: "Biostats_HW2_P6"
 author: "Biostats@CUMC"
 date: "September 27, 2018"
-output: github_document
+output: 
+  html_document
 ---
 
 ```{r setup, include=FALSE}
+
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+
 ```
 
 ```{r data_import migraine}
 
-library(readxl)
 migraine <- read_excel("C:/Users/abhis/OneDrive/Desktop/School/Semester 1/P8130_biostats/HW2/migraine.xlsx")
 View(migraine)
 
 ```
 
-```{r summary_with_migraine}
+```{r summary}
 
-summary(migraine$NDDIE[which(migraine$Migraine == 1)])
+
+#NDDIE
+s_nddie_1 = summary(migraine$NDDIE[which(migraine$Migraine == 1)])
+
+sd_nddie_1 = sd(migraine$NDDIE[which(migraine$Migraine == 1)], na.rm = TRUE)
+
+var_nddie_1 = var(migraine$NDDIE[which(migraine$Migraine == 1)], na.rm = TRUE)
+
+s_nddie_0 = summary(migraine$NDDIE[which(migraine$Migraine == 0)])
+
+sd_nddie_0 = sd(migraine$NDDIE[which(migraine$Migraine == 0)], na.rm = TRUE)
+
+var_nddie_0 = var(migraine$NDDIE[which(migraine$Migraine == 0)], na.rm = TRUE)
+
+with_migraine = data.frame(rbind((data.frame(unclass(s_nddie_1))), 'sd' = sd_nddie_1, 'var' = var_nddie_1, 'size' = nrow(migraine[which(migraine$Migraine == 1),])))
+
+colnames(with_migraine) = 'nddie_w_migraine'
+
+without_migraine = data.frame(rbind((data.frame(unclass(s_nddie_0))), 'sd' = sd_nddie_0, 'var' = var_nddie_0, 'size' = nrow(migraine[which(migraine$Migraine == 0),])))
+
+colnames(without_migraine) = 'nddie_w/o_migraine'
+
+data.frame(with_migraine, without_migraine)
+
+#CSED
+s_csed_1 = summary(migraine$CESD[which(migraine$Migraine == 1)])
+
+sd_csed_1 = sd(migraine$CESD[which(migraine$Migraine == 1)], na.rm = TRUE)
+
+var_csed_1 = var(migraine$CESD[which(migraine$Migraine == 1)], na.rm = TRUE)
+
+s_csed_0 = summary(migraine$CESD[which(migraine$Migraine == 0)])
+
+sd_csed_0 = sd(migraine$CESD[which(migraine$Migraine == 0)], na.rm = TRUE)
+
+var_csed_0 = var(migraine$CESD[which(migraine$Migraine == 0)], na.rm = TRUE)
+
+with_migraine_csed = data.frame(rbind((data.frame(unclass(s_csed_1))), 'sd' = sd_csed_1, 'var' = var_csed_1, 'size' = nrow(migraine[which(migraine$Migraine == 1),])))
+
+colnames(with_migraine_csed) = 'csed_w_migraine'
+
+without_migraine_csed = data.frame(rbind((data.frame(unclass(s_csed_0))), 'sd' = sd_csed_0, 'var' = var_csed_0, 'size' = nrow(migraine[which(migraine$Migraine == 0),])))
+
+colnames(without_migraine_csed) = 'csed_w/o_migraine'
+
+data.frame(with_migraine_csed, without_migraine_csed)
+
+#Cognitive Eval
+
+s_mem_1 = summary(migraine$`ABNAS memory`[which(migraine$Migraine == 1)])
+
+sd_mem_1 = sd(migraine$`ABNAS memory`[which(migraine$Migraine == 1)], na.rm = TRUE)
+
+var_mem_1 = var(migraine$`ABNAS memory`[which(migraine$Migraine == 1)], na.rm = TRUE)
+
+s_lang_1 = summary(migraine$`ABNAS language`[which(migraine$Migraine == 1)])
+
+sd_lang_1 = sd(migraine$`ABNAS language`[which(migraine$Migraine == 1)], na.rm = TRUE)
+
+var_lang_1 = var(migraine$`ABNAS language`[which(migraine$Migraine == 1)], na.rm = TRUE)
+
+s_mem_0 = summary(migraine$`ABNAS memory`[which(migraine$Migraine == 0)])
+
+sd_mem_0 = sd(migraine$`ABNAS memory`[which(migraine$Migraine == 0)], na.rm = TRUE)
+
+var_mem_0 = var(migraine$`ABNAS memory`[which(migraine$Migraine == 0)], na.rm = TRUE)
+
+s_lang_0 = summary(migraine$`ABNAS language`[which(migraine$Migraine == 0)])
+
+sd_lang_0 = sd(migraine$`ABNAS language`[which(migraine$Migraine == 0)], na.rm = TRUE)
+
+var_lang_0 = var(migraine$`ABNAS language`[which(migraine$Migraine == 0)], na.rm = TRUE)
+
+with_migraine_mem = data.frame(rbind((data.frame(unclass(s_mem_1))), 'sd' = sd_mem_1, 'var' = var_mem_1, 'size' = nrow(migraine[which(migraine$Migraine == 1),])))
+
+colnames(with_migraine_mem) = 'mem_w_migraine'
+
+without_migraine_mem = data.frame(rbind((data.frame(unclass(s_mem_0))), 'sd' = sd_mem_0, 'var' = var_mem_0, 'size' = nrow(migraine[which(migraine$Migraine == 0),])))
+colnames(without_migraine_mem) = 'mem_w/o_migraine'
+
+with_migraine_lang = data.frame(rbind((data.frame(unclass(s_lang_1))), 'sd' = sd_lang_1, 'var' = var_lang_1, 'size' = nrow(migraine[which(migraine$Migraine == 1),])))
+
+colnames(with_migraine_lang) = 'lang_w_migraine'
+
+without_migraine_lang = data.frame(rbind((data.frame(unclass(s_lang_0))), 'sd' = sd_lang_0, 'var' = var_lang_0, 'size' = nrow(migraine[which(migraine$Migraine == 0),])))
+colnames(without_migraine_lang) = 'lang_w/o_migraine'
+
+data.frame(with_migraine_mem, with_migraine_lang, without_migraine_mem, without_migraine_lang)
+
+```
+
+##Here we take into consideration the following cutoff for NDDIE and CSED
+
+* NDDIE >= 16
+
+* CSED >= 16
+
+```{r summary_cutoff}
+
+#NDDIE
+
+migraine_nddie_c = data.frame(migraine[which(migraine$NDDIE >= 16),])
+
+s_nddie_1_c = summary(migraine_nddie_c$NDDIE[which(migraine_nddie_c$Migraine == 1)])
+
+sd_nddie_1_c = sd(migraine_nddie_c$NDDIE[which(migraine_nddie_c$Migraine == 1)], na.rm = TRUE)
+
+var_nddie_1_c = var(migraine_nddie_c$NDDIE[which(migraine_nddie_c$Migraine == 1)], na.rm = TRUE)
+
+s_nddie_0_c = summary(migraine_nddie_c$NDDIE[which(migraine_nddie_c$Migraine == 0)])
+
+sd_nddie_0_c = sd(migraine_nddie_c$NDDIE[which(migraine_nddie_c$Migraine == 0)], na.rm = TRUE)
+
+var_nddie_0_c = var(migraine_nddie_c$NDDIE[which(migraine_nddie_c$Migraine == 0)], na.rm = TRUE)
+
+with_migraine_c = data.frame(rbind((data.frame(unclass(s_nddie_1_c))), 'sd' = sd_nddie_1_c, 'var' = var_nddie_1_c, 'size' = nrow(migraine_nddie_c[which(migraine_nddie_c$Migraine == 1),])))
+
+colnames(with_migraine_c) = 'nddie_w_migraine_c'
+
+without_migraine_c = data.frame(rbind((data.frame(unclass(s_nddie_0_c))), 'sd' = sd_nddie_0_c, 'var' = var_nddie_0_c, 'size' = nrow(migraine_nddie_c[which(migraine_nddie_c$Migraine == 0),])))
+
+colnames(without_migraine_c) = 'nddie_w/o_migraine_c'
+
+data.frame(with_migraine_c, without_migraine_c)
+
+#CSED
+
+migraine_csed_c = data.frame(migraine[which(migraine$CESD >= 16),])
+
+s_csed_1_c = summary(migraine_csed_c$CESD[which(migraine_csed_c$Migraine == 1)])
+
+sd_csed_1_c = sd(migraine_csed_c$CESD[which(migraine_csed_c$Migraine == 1)], na.rm = TRUE)
+
+var_csed_1_c = var(migraine_csed_c$CESD[which(migraine_csed_c$Migraine == 1)], na.rm = TRUE)
+
+s_csed_0_c = summary(migraine_csed_c$CESD[which(migraine_csed_c$Migraine == 0)])
+
+sd_csed_0_c = sd(migraine_csed_c$CESD[which(migraine_csed_c$Migraine == 0)], na.rm = TRUE)
+
+var_csed_0_c = var(migraine_csed_c$CESD[which(migraine_csed_c$Migraine == 0)], na.rm = TRUE)
+
+with_migraine_csed_c = data.frame(rbind((data.frame(unclass(s_csed_1_c))), 'sd' = sd_csed_1_c, 'var' = var_csed_1_c, 'size' = nrow(migraine_csed_c[which(migraine_csed_c$Migraine == 1),])))
+
+colnames(with_migraine_csed_c) = 'csed_w_migraine_c'
+
+without_migraine_csed_c = data.frame(rbind((data.frame(unclass(s_csed_0_c))), 'sd' = sd_csed_0_c, 'var' = var_csed_0_c, 'size' = nrow(migraine_csed_c[which(migraine_csed_c$Migraine == 0),])))
+
+colnames(without_migraine_csed_c) = 'csed_w/o_migraine_c'
+
+data.frame(with_migraine_csed_c, without_migraine_csed_c)
+
+```
+
+```{r histogram}
+
+par(mfrow = c(1,2))
+
+hist(migraine$NDDIE[which(migraine$Migraine == 1)], xlim = c(0,50), col = 'red', xlab = 'NDDIE', main = 'With Migraine')
+hist(migraine$NDDIE[which(migraine$Migraine == 0)], xlim = c(0,50), col = 'cyan', xlab = 'NDDIE', main = 'Without Migraine')
+hist(migraine$CESD[which(migraine$Migraine == 1)], xlim = c(0,50), col = 'red', xlab = 'CSED', main = 'With Migraine')
+hist(migraine$CESD[which(migraine$Migraine == 0)], xlim = c(0,50), col = 'cyan', xlab = 'CSED', main = 'Without Migraine')
+hist(migraine$`ABNAS memory`[which(migraine$Migraine == 1)], xlim = c(0,50), col = 'red', xlab = 'ABNAS MEMORY', main = 'With Migraine')
+hist(migraine$`ABNAS memory`[which(migraine$Migraine == 0)], xlim = c(0,50), col = 'cyan', xlab = 'ABNAS MEMORY', main = 'Without Migraine')
+hist(migraine$`ABNAS language`[which(migraine$Migraine == 1)], xlim = c(0,50), col = 'red', xlab = 'ABNAS LANGUAGE', main = 'With Migraine')
+hist(migraine$`ABNAS language`[which(migraine$Migraine == 0)], xlim = c(0,50), col = 'cyan', xlab = 'ABNAS LANGUAGE', main = 'Without Migraine')
+
+```
+
+```{r boxplot}
+
+layout(heights = c(5,5),T)
+par(mfrow = c(1,2))
+
+boxplot(migraine$NDDIE[which(migraine$Migraine == 1)], col = 'red', xlab = 'NDDIE', main = 'With Migraine')
+boxplot(migraine$NDDIE[which(migraine$Migraine == 0)], col = 'cyan', xlab = 'NDDIE', main = 'Without Migraine')
+boxplot(migraine$CESD[which(migraine$Migraine == 1)], col = 'red', xlab = 'CSED', main = 'With Migraine')
+boxplot(migraine$CESD[which(migraine$Migraine == 0)], col = 'cyan', xlab = 'CSED', main = 'Without Migraine')
+boxplot(migraine$`ABNAS memory`[which(migraine$Migraine == 1)], col = 'red', xlab = 'ABNAS MEMORY', main = 'With Migraine')
+boxplot(migraine$`ABNAS memory`[which(migraine$Migraine == 0)], col = 'cyan', xlab = 'ABNAS MEMORY', main = 'Without Migraine')
+boxplot(migraine$`ABNAS language`[which(migraine$Migraine == 1)], col = 'red', xlab = 'ABNAS LANGUAGE', main = 'With Migraine')
+boxplot(migraine$`ABNAS language`[which(migraine$Migraine == 0)], col = 'cyan', xlab = 'ABNAS LANGUAGE', main = 'Without Migraine')
 
 ```
