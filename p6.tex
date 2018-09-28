@@ -1,0 +1,549 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Biostats\_HW2\_P6},
+            pdfauthor={Biostats@CUMC},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Biostats\_HW2\_P6}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{\href{mailto:Biostats@CUMC}{\nolinkurl{Biostats@CUMC}}}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{September 27, 2018}
+
+
+\begin{document}
+\maketitle
+
+\section{Problem 3}\label{problem-3}
+
+We are given that 8\% percent of men and 30\% of women are
+\textbf{colorblind}.
+
+\textbf{(A)}
+
+If 10 men were randomly selected for a study on traffic signal
+perceptions, find the probability that exactly half of them cannot
+distinguish between red and green.
+
+So here we have a binomial distribution with the probability of success
+being the probability that the man selected in colorblind = p = 8\% =
+0.08
+
+N is the number of trials = 10
+
+x is the number of success = 5
+
+Therefore, X - Random variable denoting colorblind men: \emph{X
+\textasciitilde{} Bin(N,p)} = \emph{X \textasciitilde{} Bin(10, 0.08)}
+
+Using these values in the dbinom function in R gives us: P(X = 5) =
+5.4423894\times 10\^{}\{-4\}
+
+\textbf{(B)}
+
+What if we would randomly select 10 women instead? How would the
+probability change?
+
+So here we have a binomial distribution with the probability of success
+being the probability that the woman selected in colorblind = p = 30\% =
+0.3
+
+N is the number of trials = 10
+
+x is the number of success = 5
+
+Therefore, X - Random variable denoting colorblind women: \emph{X
+\textasciitilde{} Bin(N,p)} = \emph{X \textasciitilde{} Bin(10, 0.30)}
+
+Using these values in the dbinom function in R gives us: P(X = 5) =
+0.1029193
+
+We see that the probability of success increases in the case of women
+and hence it is more likely to pick up a colorblind woman from a random
+set of 10 women than a colorlind man from a random set of 10 men.
+
+\section{Problem 4}\label{problem-4}
+
+\textbf{Given:} Incidence of uveal melanoma: 5/10\^{}6/year = lambda
+
+\section{Problem 6}\label{problem-6}
+
+Here we import the data set
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{migraine <-}\StringTok{ }\KeywordTok{read_excel}\NormalTok{(}\StringTok{"C:/Users/abhis/OneDrive/Desktop/School/Semester 1/P8130_biostats/HW2/migraine.xlsx"}\NormalTok{)}
+\KeywordTok{View}\NormalTok{(migraine)}
+\end{Highlighting}
+\end{Shaded}
+
+Here we work on the first, \textbf{A} part of the question. Summarizing
+NDDIE, CSED, Cognitive Evaluation with the original scores. We take into
+consideration the follwoing parameters:
+
+\begin{itemize}
+\item
+  Minimum value
+\item
+  1st Quartile
+\item
+  Median
+\item
+  Mean
+\item
+  3rd Quartile
+\item
+  Maximum value
+\item
+  Number of NA's
+\item
+  Standard Deviation
+\item
+  Variance
+\item
+  Size
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#NDDIE}
+\NormalTok{s_nddie_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)])}
+
+\NormalTok{sd_nddie_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_nddie_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{s_nddie_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)])}
+
+\NormalTok{sd_nddie_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_nddie_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{with_migraine =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_nddie_}\DecValTok{1}\NormalTok{))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_nddie_}\DecValTok{1}\NormalTok{, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_nddie_}\DecValTok{1}\NormalTok{, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{),])))}
+
+\KeywordTok{colnames}\NormalTok{(with_migraine) =}\StringTok{ 'nddie_w_migraine'}
+
+\NormalTok{without_migraine =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_nddie_}\DecValTok{0}\NormalTok{))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_nddie_}\DecValTok{0}\NormalTok{, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_nddie_}\DecValTok{0}\NormalTok{, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{),])))}
+
+\KeywordTok{colnames}\NormalTok{(without_migraine) =}\StringTok{ 'nddie_w/o_migraine'}
+
+\KeywordTok{data.frame}\NormalTok{(with_migraine, without_migraine)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         nddie_w_migraine nddie_w.o_migraine
+## Min.            6.000000            6.00000
+## 1st Qu.         8.000000            6.00000
+## Median         11.000000            9.00000
+## Mean           11.424658           10.28571
+## 3rd Qu.        14.000000           13.00000
+## Max.           23.000000           24.00000
+## NA's            9.000000           64.00000
+## sd              4.361822            4.48925
+## var            19.025495           20.15336
+## size           82.000000          337.00000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#CSED}
+\NormalTok{s_csed_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)])}
+
+\NormalTok{sd_csed_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_csed_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{s_csed_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)])}
+
+\NormalTok{sd_csed_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_csed_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{with_migraine_csed =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_csed_}\DecValTok{1}\NormalTok{))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_csed_}\DecValTok{1}\NormalTok{, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_csed_}\DecValTok{1}\NormalTok{, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{),])))}
+
+\KeywordTok{colnames}\NormalTok{(with_migraine_csed) =}\StringTok{ 'csed_w_migraine'}
+
+\NormalTok{without_migraine_csed =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_csed_}\DecValTok{0}\NormalTok{))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_csed_}\DecValTok{0}\NormalTok{, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_csed_}\DecValTok{0}\NormalTok{, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{),])))}
+
+\KeywordTok{colnames}\NormalTok{(without_migraine_csed) =}\StringTok{ 'csed_w/o_migraine'}
+
+\KeywordTok{data.frame}\NormalTok{(with_migraine_csed, without_migraine_csed)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         csed_w_migraine csed_w.o_migraine
+## Min.            0.00000           0.00000
+## 1st Qu.         6.00000           3.00000
+## Median         11.00000           8.00000
+## Mean           14.40541          10.67883
+## 3rd Qu.        20.00000          14.00000
+## Max.           46.00000          48.00000
+## NA's            8.00000          63.00000
+## sd             11.47591          10.29807
+## var           131.69641         106.05032
+## size           82.00000         337.00000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Cognitive Eval}
+
+\NormalTok{s_mem_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS memory}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)])}
+
+\NormalTok{sd_mem_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS memory}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_mem_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS memory}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{s_lang_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS language}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)])}
+
+\NormalTok{sd_lang_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS language}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_lang_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS language}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{s_mem_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS memory}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)])}
+
+\NormalTok{sd_mem_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS memory}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_mem_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS memory}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{s_lang_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS language}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)])}
+
+\NormalTok{sd_lang_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS language}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_lang_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS language}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{with_migraine_mem =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_mem_}\DecValTok{1}\NormalTok{))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_mem_}\DecValTok{1}\NormalTok{, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_mem_}\DecValTok{1}\NormalTok{, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{),])))}
+
+\KeywordTok{colnames}\NormalTok{(with_migraine_mem) =}\StringTok{ 'mem_w_migraine'}
+
+\NormalTok{without_migraine_mem =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_mem_}\DecValTok{0}\NormalTok{))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_mem_}\DecValTok{0}\NormalTok{, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_mem_}\DecValTok{0}\NormalTok{, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{),])))}
+\KeywordTok{colnames}\NormalTok{(without_migraine_mem) =}\StringTok{ 'mem_w/o_migraine'}
+
+\NormalTok{with_migraine_lang =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_lang_}\DecValTok{1}\NormalTok{))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_lang_}\DecValTok{1}\NormalTok{, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_lang_}\DecValTok{1}\NormalTok{, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{),])))}
+
+\KeywordTok{colnames}\NormalTok{(with_migraine_lang) =}\StringTok{ 'lang_w_migraine'}
+
+\NormalTok{without_migraine_lang =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_lang_}\DecValTok{0}\NormalTok{))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_lang_}\DecValTok{0}\NormalTok{, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_lang_}\DecValTok{0}\NormalTok{, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{),])))}
+\KeywordTok{colnames}\NormalTok{(without_migraine_lang) =}\StringTok{ 'lang_w/o_migraine'}
+
+\KeywordTok{data.frame}\NormalTok{(with_migraine_mem, with_migraine_lang, without_migraine_mem, without_migraine_lang)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         mem_w_migraine lang_w_migraine mem_w.o_migraine lang_w.o_migraine
+## Min.          0.000000        0.000000         0.000000          0.000000
+## 1st Qu.       1.000000        0.000000         0.000000          0.000000
+## Median        2.000000        1.000000         2.000000          1.000000
+## Mean          3.304878        1.975610         2.554896          1.602374
+## 3rd Qu.       5.000000        3.000000         4.000000          2.000000
+## Max.         12.000000        8.000000        12.000000          9.000000
+## sd            3.369027        2.084485         3.042963          2.212463
+## var          11.350346        4.345077         9.259626          4.894994
+## size         82.000000       82.000000       337.000000        337.000000
+\end{verbatim}
+
+\subsection{Here we take into consideration the following cutoff for
+NDDIE and
+CSED}\label{here-we-take-into-consideration-the-following-cutoff-for-nddie-and-csed}
+
+\begin{itemize}
+\item
+  NDDIE \textgreater{}= 16
+\item
+  CSED \textgreater{}= 16
+\end{itemize}
+
+For summarzing the NDDIE and CSED.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#NDDIE}
+
+\NormalTok{migraine_nddie_c =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(migraine[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE }\OperatorTok{>=}\StringTok{ }\DecValTok{16}\NormalTok{),])}
+
+\NormalTok{s_nddie_1_c =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)])}
+
+\NormalTok{sd_nddie_1_c =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_nddie_1_c =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{s_nddie_0_c =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)])}
+
+\NormalTok{sd_nddie_0_c =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_nddie_0_c =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{with_migraine_c =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_nddie_1_c))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_nddie_1_c, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_nddie_1_c, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine_nddie_c[}\KeywordTok{which}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{),])))}
+
+\KeywordTok{colnames}\NormalTok{(with_migraine_c) =}\StringTok{ 'nddie_w_migraine_c'}
+
+\NormalTok{without_migraine_c =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_nddie_0_c))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_nddie_0_c, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_nddie_0_c, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine_nddie_c[}\KeywordTok{which}\NormalTok{(migraine_nddie_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{),])))}
+
+\KeywordTok{colnames}\NormalTok{(without_migraine_c) =}\StringTok{ 'nddie_w/o_migraine_c'}
+
+\KeywordTok{data.frame}\NormalTok{(with_migraine_c, without_migraine_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         nddie_w_migraine_c nddie_w.o_migraine_c
+## Min.             16.000000            16.000000
+## 1st Qu.          18.500000            17.000000
+## Median           19.000000            19.000000
+## Mean             19.454545            19.025641
+## 3rd Qu.          20.500000            20.500000
+## Max.             23.000000            24.000000
+## sd                2.067058             2.590338
+## var               4.272727             6.709852
+## size             11.000000            39.000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#CSED}
+
+\NormalTok{migraine_csed_c =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(migraine[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD }\OperatorTok{>=}\StringTok{ }\DecValTok{16}\NormalTok{),])}
+
+\NormalTok{s_csed_1_c =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)])}
+
+\NormalTok{sd_csed_1_c =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_csed_1_c =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{s_csed_0_c =}\StringTok{ }\KeywordTok{summary}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)])}
+
+\NormalTok{sd_csed_0_c =}\StringTok{ }\KeywordTok{sd}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{var_csed_0_c =}\StringTok{ }\KeywordTok{var}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{with_migraine_csed_c =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_csed_1_c))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_csed_1_c, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_csed_1_c, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine_csed_c[}\KeywordTok{which}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{),])))}
+
+\KeywordTok{colnames}\NormalTok{(with_migraine_csed_c) =}\StringTok{ 'csed_w_migraine_c'}
+
+\NormalTok{without_migraine_csed_c =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{rbind}\NormalTok{((}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(s_csed_0_c))), }\StringTok{'sd'}\NormalTok{ =}\StringTok{ }\NormalTok{sd_csed_0_c, }\StringTok{'var'}\NormalTok{ =}\StringTok{ }\NormalTok{var_csed_0_c, }\StringTok{'size'}\NormalTok{ =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(migraine_csed_c[}\KeywordTok{which}\NormalTok{(migraine_csed_c}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{),])))}
+
+\KeywordTok{colnames}\NormalTok{(without_migraine_csed_c) =}\StringTok{ 'csed_w/o_migraine_c'}
+
+\KeywordTok{data.frame}\NormalTok{(with_migraine_csed_c, without_migraine_csed_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         csed_w_migraine_c csed_w.o_migraine_c
+## Min.            16.000000            16.00000
+## 1st Qu.         20.000000            19.25000
+## Median          25.000000            24.00000
+## Mean            27.423077            26.56452
+## 3rd Qu.         33.500000            31.00000
+## Max.            46.000000            48.00000
+## sd               8.764351             8.83848
+## var             76.813846            78.11872
+## size            26.000000            62.00000
+\end{verbatim}
+
+Here we work on the \textbf{B} part of the question. We make histograms
+and boxplots considering the fact that our variables are continuous in
+nature in the given range.
+
+At first we make histograms in a 1, 2 matrix format for with migraine
+and wwithout migraine pe variable, i.e NDDIE, CSED, ABNAS Memory, ABNAS
+Language.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+
+\KeywordTok{hist}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{50}\NormalTok{), }\DataTypeTok{col =} \StringTok{'red'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'NDDIE'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'With Migraine'}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{50}\NormalTok{), }\DataTypeTok{col =} \StringTok{'cyan'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'NDDIE'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'Without Migraine'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p6_files/figure-latex/histogram-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{50}\NormalTok{), }\DataTypeTok{col =} \StringTok{'red'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'CSED'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'With Migraine'}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{50}\NormalTok{), }\DataTypeTok{col =} \StringTok{'cyan'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'CSED'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'Without Migraine'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p6_files/figure-latex/histogram-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS memory}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{50}\NormalTok{), }\DataTypeTok{col =} \StringTok{'red'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'ABNAS MEMORY'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'With Migraine'}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS memory}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{50}\NormalTok{), }\DataTypeTok{col =} \StringTok{'cyan'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'ABNAS MEMORY'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'Without Migraine'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p6_files/figure-latex/histogram-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS language}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{50}\NormalTok{), }\DataTypeTok{col =} \StringTok{'red'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'ABNAS LANGUAGE'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'With Migraine'}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS language}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{50}\NormalTok{), }\DataTypeTok{col =} \StringTok{'cyan'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'ABNAS LANGUAGE'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'Without Migraine'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p6_files/figure-latex/histogram-4.pdf}
+
+\textbf{We do the similar process as explained above using boxplots.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{layout}\NormalTok{(}\DataTypeTok{heights =} \KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{),T)}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+
+\KeywordTok{boxplot}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{col =} \StringTok{'red'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'NDDIE'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'With Migraine'}\NormalTok{)}
+\KeywordTok{boxplot}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{NDDIE[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{col =} \StringTok{'cyan'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'NDDIE'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'Without Migraine'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p6_files/figure-latex/boxplot-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxplot}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{col =} \StringTok{'red'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'CSED'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'With Migraine'}\NormalTok{)}
+\KeywordTok{boxplot}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{CESD[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{col =} \StringTok{'cyan'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'CSED'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'Without Migraine'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p6_files/figure-latex/boxplot-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxplot}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS memory}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{col =} \StringTok{'red'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'ABNAS MEMORY'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'With Migraine'}\NormalTok{)}
+\KeywordTok{boxplot}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS memory}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{col =} \StringTok{'cyan'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'ABNAS MEMORY'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'Without Migraine'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p6_files/figure-latex/boxplot-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxplot}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS language}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)], }\DataTypeTok{col =} \StringTok{'red'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'ABNAS LANGUAGE'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'With Migraine'}\NormalTok{)}
+\KeywordTok{boxplot}\NormalTok{(migraine}\OperatorTok{$}\StringTok{`}\DataTypeTok{ABNAS language}\StringTok{`}\NormalTok{[}\KeywordTok{which}\NormalTok{(migraine}\OperatorTok{$}\NormalTok{Migraine }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)], }\DataTypeTok{col =} \StringTok{'cyan'}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{'ABNAS LANGUAGE'}\NormalTok{, }\DataTypeTok{main =} \StringTok{'Without Migraine'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p6_files/figure-latex/boxplot-4.pdf}
+
+
+\end{document}
