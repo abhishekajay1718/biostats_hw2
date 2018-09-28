@@ -13,13 +13,38 @@ library(tidyverse)
 library(readxl)
 
 ```
+#Problem 6
 
+Here we import the data set
 ```{r data_import migraine}
 
 migraine <- read_excel("C:/Users/abhis/OneDrive/Desktop/School/Semester 1/P8130_biostats/HW2/migraine.xlsx")
 View(migraine)
 
 ```
+
+Here we work on the first, **A** part of the question. Summarizing NDDIE, CSED, Cognitive Evaluation with the original scores.
+We take into consideration the follwoing parameters: 
+
+* Minimum value
+
+* 1st Quartile
+
+* Median
+
+* Mean
+
+* 3rd Quartile
+
+* Maximum value
+
+* Number of NA's
+
+* Standard Deviation
+
+* Variance
+
+* Size
 
 ```{r summary}
 
@@ -120,6 +145,8 @@ data.frame(with_migraine_mem, with_migraine_lang, without_migraine_mem, without_
 
 * CSED >= 16
 
+For summarzing the NDDIE and CSED.
+
 ```{r summary_cutoff}
 
 #NDDIE
@@ -175,6 +202,9 @@ colnames(without_migraine_csed_c) = 'csed_w/o_migraine_c'
 data.frame(with_migraine_csed_c, without_migraine_csed_c)
 
 ```
+Here we work on the **B** part of the question. We make histograms and boxplots considering the fact that our variables are continuous in nature in the given range.
+
+At first we make histograms in a 1, 2 matrix format for with migraine and wwithout migraine pe variable, i.e NDDIE, CSED, ABNAS Memory, ABNAS Language.
 
 ```{r histogram}
 
@@ -190,6 +220,9 @@ hist(migraine$`ABNAS language`[which(migraine$Migraine == 1)], xlim = c(0,50), c
 hist(migraine$`ABNAS language`[which(migraine$Migraine == 0)], xlim = c(0,50), col = 'cyan', xlab = 'ABNAS LANGUAGE', main = 'Without Migraine')
 
 ```
+
+
+**We do the similar process as explained above using boxplots.**
 
 ```{r boxplot}
 
