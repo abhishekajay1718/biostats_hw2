@@ -129,6 +129,24 @@ $(document).ready(function () {
 </div>
 
 
+<div id="problem-3" class="section level1">
+<h1>Problem 3</h1>
+<p>We are given that 8% percent of men and 30% of women are <strong>colorblind</strong>.</p>
+<p><strong>(A)</strong></p>
+<p>If 10 men were randomly selected for a study on traffic signal perceptions, find the probability that exactly half of them cannot distinguish between red and green.</p>
+<p>So here we have a binomial distribution with the probability of success being the probability that the man selected in colorblind = p = 8% = 0.08</p>
+<p>N is the number of trials = 10</p>
+<p>x is the number of success = 5</p>
+<p>Therefore, X - Random variable denoting colorblind men: <em>X ~ Bin(N,p)</em> = <em>X ~ Bin(10, 0.08)</em></p>
+<p>Using these values in the dbinom function in R gives us: P(X = 5) = 5.442389410^{-4}</p>
+<p><strong>(B)</strong></p>
+<p>What if we would randomly select 10 women instead? How would the probability change?</p>
+<p>So here we have a binomial distribution with the probability of success being the probability that the woman selected in colorblind = 30% = 0.3</p>
+<p>N is the number of trials = 10</p>
+<p>x is the number of success = 5</p>
+<p>Therefore, X - Random variable denoting colorblind women: <em>X ~ Bin(N,p)</em> = <em>X ~ Bin(10, 0.30)</em></p>
+<p>Using these values in the dbinom function in R gives us: P(X = 5) = 0.1029193</p>
+</div>
 <div id="problem-6" class="section level1">
 <h1>Problem 6</h1>
 <p>Here we import the data set</p>
